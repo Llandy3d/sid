@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import UserProfile, Wallet
+
+admin.site.register(UserProfile)
+admin.site.register(Wallet)
