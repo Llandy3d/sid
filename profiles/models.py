@@ -28,9 +28,10 @@ class Wallet(models.Model):
 
 
 # SIGNALS
-def complete_user_profile(sender, instance, **kwargs):
+def complete_user_profile(sender, instance, created, **kwargs):
     """After the user is created, create the UserProfile and Wallet"""
-    UserProfile.objects.create(user=instance)
-    Wallet.objects.create(user=instance)
+    if created:
+        UserProfile.objects.create(user=instance)
+        Wallet.objects.create(user=instance)
 
 post_save.connect(complete_user_profile, sender=User)
