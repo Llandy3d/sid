@@ -2,9 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
 </head>
 <body>
-$END$
+
+{% load socialaccount %}
+<a href="{% provider_login_url "openid" openid="http://steamcommunity.com/openid" next="/success/url/" %}">Google</a>
+<a href="{% provider_login_url "openid" openid="http://steamcommunity.com/openid" next="/success/url/" process="connect" %}">Connect</a>
+
+<br>
+<br>
+{{ user.username }}
+
 </body>
 </html>
