@@ -4,10 +4,16 @@ from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 
 
+def user_avatar_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    return 'user_{0}/{1}'.format(instance.user.id, filename)
+
+
 # TODO add billing information
 class UserProfile(models.Model):
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='profile')
+    avatar = models.ImageField(upload_to=user_avatar_path, default='default.jpg')
 
     def __str__(self):
         return self.user.username + "'s profile"
