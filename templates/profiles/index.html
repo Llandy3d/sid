@@ -2,8 +2,8 @@
 
 {% block content %}
     {% load socialaccount %}
-    <a href="{% provider_login_url "openid" openid="http://steamcommunity.com/openid" next="/success/url/" %}">Google</a>
-    <a href="{% provider_login_url "openid" openid="http://steamcommunity.com/openid" next="/success/url/" process="connect" %}">Connect</a>
+    <a href="{% provider_login_url "openid" openid="http://steamcommunity.com/openid" next="/accounts/" %}">Google</a>
+    <a href="{% provider_login_url "openid" openid="http://steamcommunity.com/openid" next="/accounts/" process="connect" %}">Connect</a>
 
 
 <br>
