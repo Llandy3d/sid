@@ -130,5 +130,6 @@ STATICFILES_DIRS = (
 
 ACCOUNT_EMAIL_REQUIRED = True
 
+
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
