@@ -3,6 +3,8 @@ from django.conf import settings
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 
+from teams.models import Team
+
 
 def user_avatar_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
@@ -14,6 +16,10 @@ class UserProfile(models.Model):
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='profile')
     avatar = models.ImageField(upload_to=user_avatar_path, default='default.jpg')
+
+    # for the team
+    team = models.ForeignKey(Team, related_name='members', null=True)
+    is_leader = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username + "'s profile"
