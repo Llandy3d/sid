@@ -1,0 +1,5 @@
+body {
+    background-color: #3c3f41;
+    padding-top: 70px; /* required for the .navbar-fixed-top */
+    color: white;
+}
