@@ -1,5 +1,4 @@
 from django.db import models
-from django.conf import settings
 
 
 def team_logo_path(instance, filename):
