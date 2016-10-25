@@ -10,12 +10,6 @@
             <h1>{{ user.username }}</h1>
             <img src="{% get_media_prefix %}{{ user.profile.avatar }}" alt="" width="200" height="200">
 
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-6">
-
             {% if has_steam_connected %}
                 <h3>Steam account connected</h3>
             {% else %}
@@ -25,7 +19,11 @@
                 <a href="{% provider_login_url "openid" openid="http://steamcommunity.com/openid" next="/accounts/profile/" process="connect" %}">Connect Steam</a>
 
             {% endif %}
+
+            <h4>Current balance: {{ balance }}</h4>
+
         </div>
     </div>
+
 
 {% endblock content %}

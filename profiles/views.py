@@ -11,6 +11,7 @@ def profile(request):
 
     context = {
         'has_steam_connected': request.user.profile.has_steam_connected(),
+        'balance': request.user.wallet.get_total(),
     }
 
     return render(request, 'profiles/profile.html', context)
