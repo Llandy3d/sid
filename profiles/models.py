@@ -17,10 +17,6 @@ class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='profile')
     avatar = models.ImageField(upload_to=user_avatar_path, default='default.jpg')
 
-    # for the team
-    team = models.ForeignKey(Team, related_name='members', null=True)
-    is_leader = models.BooleanField(default=False)
-
     def has_steam_connected(self):
         """Returns wether the user has connected his steam account"""
         return len(self.user.socialaccount_set.all()) > 0
