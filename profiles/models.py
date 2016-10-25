@@ -21,6 +21,10 @@ class UserProfile(models.Model):
     team = models.ForeignKey(Team, related_name='members', null=True)
     is_leader = models.BooleanField(default=False)
 
+    def has_steam_connected(self):
+        """Returns wether the user has connected his steam account"""
+        return len(self.user.socialaccount_set.all()) > 0
+
     def __str__(self):
         return self.user.username + "'s profile"
 
