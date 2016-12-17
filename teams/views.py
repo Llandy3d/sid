@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from notifications.models import Notification, TeamInviteNotification
 
 from .models import Membership, Team
 from .forms import TeamForm, AddMemberForm
-
 
 
 @login_required
@@ -56,6 +56,8 @@ def add_team_member(request):
             team = Team.objects.get(membership__user=request.user, membership__role=Membership.ADMIN)
             team_invite = TeamInviteNotification.objects.create(team=team)
             Notification.objects.create(content_object=team_invite, user=user_to_invite)
+
+            messages.add_message(request, messages.SUCCESS, 'Invite sent correctly')
 
             return redirect('team')
 

@@ -14,6 +14,12 @@ class Notification(models.Model):
 
     user = models.ForeignKey(User)
 
+    def __str__(self):
+        return 'Notification: {}'.format(self.user)
+
+    def get_template(self):
+        return '{}/{}.html'.format(self.content_object._meta.app_label, self.content_object._meta.model_name)
+
 
 class TeamInviteNotification(models.Model):
 

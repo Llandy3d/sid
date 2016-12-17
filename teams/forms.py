@@ -14,4 +14,6 @@ class TeamForm(forms.ModelForm):
 
 class AddMemberForm(forms.Form):
 
-    user_to_invite = forms.ModelChoiceField(queryset=User.objects.all())
+    # NOTE  Currently the user can get spammed the invites from the same team
+    queryset = User.objects.filter(membership=None)
+    user_to_invite = forms.ModelChoiceField(queryset=queryset)
