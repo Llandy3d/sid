@@ -8,6 +8,9 @@ def test_view(request):
 
 @login_required
 def profile(request):
+    """
+    User profile page.
+    """
 
     context = {
         'has_steam_connected': request.user.profile.has_steam_connected(),

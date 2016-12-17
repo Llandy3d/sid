@@ -10,6 +10,9 @@ from .forms import TeamForm, AddMemberForm
 
 @login_required
 def team(request):
+    """
+    Main Team page.
+    """
 
     player_team = None  # initialize
     # There is atleast one membership
@@ -27,6 +30,10 @@ def team(request):
 
 @login_required
 def create_team(request):
+    """
+    Page for the creation of a new Team.
+    A new Membership object will be created for the User creating the Team with role ADMIN.
+    """
 
     if request.method == 'POST':
         form = TeamForm(request.POST)
@@ -47,6 +54,10 @@ def create_team(request):
 
 @login_required
 def add_team_member(request):
+    """
+    Page for the invitation of a new member.
+    A new Notification object will be created with a TeamInviteNotification.
+    """
 
     if request.method == 'POST':
         form = AddMemberForm(request.POST)

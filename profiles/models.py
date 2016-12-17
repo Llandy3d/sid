@@ -7,12 +7,20 @@ from teams.models import Team
 
 
 def user_avatar_path(instance, filename):
+    """
+    Returns the path to the user avatar image.
+    """
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     return 'user_{0}/{1}'.format(instance.user.id, filename)
 
 
 # TODO add billing information
 class UserProfile(models.Model):
+    """
+    Represents the User profile.
+
+    avatar:  The user avatar image
+    """
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='profile')
     avatar = models.ImageField(upload_to=user_avatar_path, default='default.jpg')
@@ -26,6 +34,9 @@ class UserProfile(models.Model):
 
 
 class Wallet(models.Model):
+    """
+    User wallet, values divided in retirable and not retirable. The total is formed by their addition.
+    """
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='wallet')
     retirable = models.IntegerField(default=0)

@@ -4,6 +4,9 @@ from .models import Notification
 
 
 def notifications(request):
+    """
+    Shows all the notifications.
+    """
 
     notifications_list = Notification.objects.filter(user=request.user)
 
