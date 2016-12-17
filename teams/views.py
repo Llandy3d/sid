@@ -1,8 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
+from notifications.models import Notification, TeamInviteNotification
+
 from .models import Membership, Team
-from .forms import TeamForm
+from .forms import TeamForm, AddMemberForm
+
+
 
 @login_required
 def team(request):
@@ -39,3 +43,23 @@ def create_team(request):
         form = TeamForm()
 
     return render(request, 'teams/create_team.html', {'form': form})
+
+
+@login_required
+def add_team_member(request):
+
+    if request.method == 'POST':
+        form = AddMemberForm(request.POST)
+        if form.is_valid():
+            # create the TeamInvite notification and a notification
+            user_to_invite = form.cleaned_data['user_to_invite']
+            team = Team.objects.get(membership__user=request.user, membership__role=Membership.ADMIN)
+            team_invite = TeamInviteNotification.objects.create(team=team)
+            Notification.objects.create(content_object=team_invite, user=user_to_invite)
+
+            return redirect('team')
+
+    else:
+        form = AddMemberForm()
+
+    return render(request, 'teams/add_member.html', {'form': form})

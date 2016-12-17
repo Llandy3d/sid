@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.openid',
     'profiles',
     'teams',
+    'notifications',
 )
 
 MIDDLEWARE_CLASSES = (
