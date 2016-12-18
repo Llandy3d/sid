@@ -23,6 +23,7 @@ def accept_team_invite(request):
     Team invite accepted.
     Membership created for the User.
     Remaining Notifications -> TeamInviteNotification objects removed.
+    Redirects to the Team page.
     """
     team_id = request.POST.get('team_id')
     team = Team.objects.get(id=team_id)
@@ -37,6 +38,7 @@ def accept_team_invite(request):
 def decline_team_invite(request):
     """
     Team invite declined.
+    Redirects to the Notifications page.
     """
     team_invite_id = request.POST.get('team_invite_id')
     TeamInviteNotification.objects.get(id=team_invite_id).delete()
