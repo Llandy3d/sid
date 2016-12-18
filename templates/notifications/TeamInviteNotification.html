@@ -11,5 +11,6 @@
 {# Decline button form #}
 <form action="{% url 'decline_team_invite' %}" method="post">
     {% csrf_token %}
+    <input type="hidden" value="{{ notification.content_object.id }}" name="team_invite_id">
     <button type="submit" class="btn btn-danger">Decline</button>
 </form>

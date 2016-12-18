@@ -38,3 +38,7 @@ def decline_team_invite(request):
     """
     Team invite declined.
     """
+    team_invite_id = request.POST.get('team_invite_id')
+    TeamInviteNotification.objects.get(id=team_invite_id).delete()
+
+    return redirect('notifications')
