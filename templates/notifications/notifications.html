@@ -2,14 +2,27 @@
 
 {% load static %}
 
+{% block stylesheets %}
+
+    {{ block.super }}
+
+    <link rel="stylesheet" href="{% static 'css/notifications.css' %}">
+
+{% endblock stylesheets %}
+
+
 {% block content %}
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-3">
 
-            <h4>MANY NOTIFICATIONS</h4>
+            {% for notification in notifications %}
+                <div class="notification">
+                    {% include notification.get_template %}
+                </div>
+            {% endfor %}
 
-        </div> <!-- end of col-md-6 -->
+        </div> <!-- end of col-md-3 -->
     </div>
 
 

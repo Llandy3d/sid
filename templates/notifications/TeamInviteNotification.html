@@ -1,1 +1,15 @@
-<h4>TEAM INVITE NOTIFICATION</h4>
+{# notification  object passed #}
+<h4><b>{{ notification.content_object.team }}</b> invited you to join:</h4>
+
+{# Accept button form #}
+<form action="{% url 'accept_team_invite' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" value="{{ notification.content_object.team.id }}" name="team_id">
+    <button type="submit" class="btn btn-success">Accept</button>
+</form>
+
+{# Decline button form #}
+<form action="{% url 'decline_team_invite' %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Decline</button>
+</form>
