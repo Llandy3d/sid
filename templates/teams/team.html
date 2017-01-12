@@ -11,6 +11,13 @@
                 <p>You have a team</p>
                 <h1>{{ team.name }}</h1>
                 <img src="{% get_media_prefix %}{{ team.logo }}" alt="" width="200" height="200">
+
+                <form action="{% url 'leave_team' %}" method="post">
+                    {% csrf_token %}
+
+                    <button type="submit" class="btn btn-danger">Leave Team</button>
+                </form>
+
                 <ul>
                     {% for user in team.members.all %}
                         <li>{{ user }}</li>

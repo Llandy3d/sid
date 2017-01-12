@@ -76,3 +76,30 @@ def add_team_member(request):
         form = AddMemberForm()
 
     return render(request, 'teams/add_member.html', {'form': form})
+
+
+@login_required
+def leave_team(request):
+    """
+    Endpoint for leaving the team, if the User is the leader of the team
+    he may not leave the team before giving leadership to someone else.
+
+    NOTE:  It assumes that an User can only have a Membership to only one Team.
+    """
+    if request.method == 'POST':
+
+        membership = Membership.objects.get(user=request.user)
+
+        if membership.role == Membership.ADMIN:
+            messages.add_message(
+                request,
+                messages.ERROR,
+                "You can't leave the team as a Leader. Please transfer leadership before leaving")
+            return redirect('team')
+
+        # if it's not the leader of the team
+        membership.delete()
+        messages.add_message(request, messages.SUCCESS, 'You left the team.')
+        return redirect('team')
+
+    return redirect('team')
