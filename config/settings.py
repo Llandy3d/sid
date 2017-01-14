@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     'profiles',
     'teams',
     'notifications',
+    'tournaments',
 )
 
 MIDDLEWARE_CLASSES = (
