@@ -17,6 +17,10 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 
+# Temporary Redirect
+from django.shortcuts import redirect
+def temp_redirect(request):
+    return redirect('test_view')
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -24,4 +28,6 @@ urlpatterns = [
     url(r'^accounts/', include('profiles.urls')),
     url(r'^team/', include('teams.urls')),
     url(r'^notifications/', include('notifications.urls')),
+    # Temporary Redirect
+    url(r'^$', temp_redirect),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # for development only
