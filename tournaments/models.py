@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.core.urlresolvers import reverse
 
 from teams.models import Team
 
@@ -17,6 +18,9 @@ class Tournament(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('tournament', args=[str(self.id)])
 
 
 class TournamentEntry(models.Model):
