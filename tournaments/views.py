@@ -1,8 +1,9 @@
 from django.contrib.auth.decorators import login_required, user_passes_test
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 
 from teams.models import Membership
 from .models import Tournament, TournamentEntry
+from .forms import JoinTournamentForm
 
 
 def check_leader_team(user):
@@ -42,4 +43,23 @@ def tournament_join(request, tournament_id):
     """
 
     tournament_object = get_object_or_404(Tournament, id=tournament_id)
-    return render(request, 'tournaments/tournament_join.html', {'tournament': tournament_object})
+    team = Membership.objects.get(user=request.user, role=Membership.ADMIN).team
+
+    # If there is already an Entry for this Team, redirect back to the tournament
+    tournament_entrys = TournamentEntry.objects.filter(tournament=tournament_object, team=team)
+    if len(tournament_entrys) > 0:
+        return redirect(tournament_object)
+
+    if request.method == 'POST':
+        form = JoinTournamentForm(request.POST)
+        if form.is_valid():
+            tournament_entry = form.save(commit=False)
+            tournament_entry.tournament = tournament_object
+            tournament_entry.team = team
+            tournament_entry.save()
+
+            return redirect(tournament_object)
+    else:
+        form = JoinTournamentForm()
+
+    return render(request, 'tournaments/tournament_join.html', {'form': form, 'tournament': tournament_object})
