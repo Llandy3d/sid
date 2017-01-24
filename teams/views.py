@@ -16,9 +16,10 @@ def team(request):
 
     player_team = None  # initialize
     # There is atleast one membership
-    has_team = len(Membership.objects.filter(user=request.user)) > 0
+    memberships = Membership.objects.filter(user=request.user)
+    has_team = len(memberships) > 0
     if has_team:
-        player_team = Membership.objects.filter(user=request.user)[0].team
+        player_team = memberships[0].team
 
     context = {
         'has_team': has_team,
