@@ -1,5 +1,7 @@
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
+from django.db.models import Q
 
 from teams.models import Membership
 from .models import Tournament, TournamentEntry
@@ -50,8 +52,11 @@ def tournament_join(request, tournament_id):
     if len(tournament_entrys) > 0:
         return redirect(tournament_object)
 
+    # TODO revise this, right now it checks if any of the wallet money is >= 5
+    member_queryset = User.objects.filter(Q(team=team), Q(wallet__retirable__gte=5) | Q(wallet__not_retirable__gte=5))
+
     if request.method == 'POST':
-        form = JoinTournamentForm(request.POST)
+        form = JoinTournamentForm(request.POST, member_queryset=member_queryset)
         if form.is_valid():
             tournament_entry = form.save(commit=False)
             tournament_entry.tournament = tournament_object
@@ -60,6 +65,6 @@ def tournament_join(request, tournament_id):
 
             return redirect(tournament_object)
     else:
-        form = JoinTournamentForm()
+        form = JoinTournamentForm(member_queryset=member_queryset)
 
     return render(request, 'tournaments/tournament_join.html', {'form': form, 'tournament': tournament_object})
