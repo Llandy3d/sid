@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import braintree
+from config import config
 
 from django.contrib.messages import constants as messages
 
@@ -146,3 +148,13 @@ ACCOUNT_EMAIL_REQUIRED = True
 
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+# BRAINTREE SETTINGS
+
+braintree.Configuration.configure(
+    config.BT_ENVIRONMENT,
+    config.BT_MERCHANT_ID,
+    config.BT_PUBLIC_KEY,
+    config.BT_PRIVATE_KEY,
+)
