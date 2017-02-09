@@ -1,0 +1,4 @@
+BT_ENVIRONMENT = 'sandbox'
+BT_MERCHANT_ID = 'your merchand id'
+BT_PUBLIC_KEY = 'your public key'
+BT_PRIVATE_KEY = 'your private key'
