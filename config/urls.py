@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^team/', include('teams.urls')),
     url(r'^notifications/', include('notifications.urls')),
     url(r'^tournaments/', include('tournaments.urls')),
+    url(r'^payments/', include('payments.urls')),
     # Temporary Redirect
     url(r'^$', temp_redirect),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # for development only

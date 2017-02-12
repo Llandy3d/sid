@@ -46,6 +46,11 @@ class Wallet(models.Model):
         """Returns the total value of the wallet, sum of retirable + not_retirable"""
         return self.retirable + self.not_retirable
 
+    def add_funds(self, amount):
+        """Add funds to the not_retirable wallet part."""
+        # TODO this might need exception checking
+        self.not_retirable += int(float(amount))
+
     def __str__(self):
         return self.user.username + "'s wallet"
 
