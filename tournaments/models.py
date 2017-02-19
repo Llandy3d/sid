@@ -45,3 +45,16 @@ class TournamentEntry(models.Model):
     member_4 = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='unused_4')
     member_5 = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='unused_5')
     coach = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='unused_6')
+
+    def pay_fee(self, amount):
+        """For each of the selected members pay the fee for the Tournament. The coach doesn't pay."""
+        members = [
+            self.member_1,
+            self.member_2,
+            self.member_3,
+            self.member_4,
+            self.member_5,
+        ]
+
+        for member in members:
+            member.wallet.remove_funds(amount)

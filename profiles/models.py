@@ -51,6 +51,11 @@ class Wallet(models.Model):
         # TODO this might need exception checking
         self.not_retirable += int(float(amount))
 
+    def remove_funds(self, amount):
+        # TODO right now just removes from not_retirable, add logic to remove from both
+        """Remove funds from the wallet."""
+        self.not_retirable -= amount
+
     def __str__(self):
         return self.user.username + "'s wallet"
 

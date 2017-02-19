@@ -61,6 +61,7 @@ def tournament_join(request, tournament_id):
             tournament_entry = form.save(commit=False)
             tournament_entry.tournament = tournament_object
             tournament_entry.team = team
+            tournament_entry.pay_fee(5)  # TODO right now is 5 the cost of a tournament, move it
             tournament_entry.save()
 
             return redirect(tournament_object)
