@@ -31,10 +31,20 @@ def tournaments(request):
 def tournament(request, tournament_id):
     """
     Page that displays a single Tournament.
+    If the user is a Team leader and the Team is not signed up, shows the join Tournament button.
     """
 
+    can_join = False
     tournament_object = get_object_or_404(Tournament, id=tournament_id)
-    return render(request, 'tournaments/tournament.html', {'tournament': tournament_object})
+
+    if request.user.is_authenticated() and check_leader_team(request.user):
+        team = Membership.objects.get(user=request.user, role=Membership.ADMIN).team
+
+        # If there is no Entry for this Team, show the join button
+        tournament_entrys = TournamentEntry.objects.filter(tournament=tournament_object, team=team)
+        if len(tournament_entrys) <= 0:
+            can_join = True
+    return render(request, 'tournaments/tournament.html', {'tournament': tournament_object, 'can_join': can_join})
 
 
 @login_required

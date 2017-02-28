@@ -15,6 +15,7 @@ class Tournament(models.Model):
     starting_date = models.DateTimeField()
     teams = models.ManyToManyField(Team, through='TournamentEntry')
     finished = models.BooleanField(default=False)
+    description = models.TextField(default='Tournament Description')
 
     def __str__(self):
         return self.name
