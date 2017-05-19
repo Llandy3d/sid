@@ -21,10 +21,10 @@ def check_leader_team(user):
 
 def tournaments(request):
     """
-    Page that displays all the Tournaments.
+    Page that displays all the Tournaments that are not finished.
     """
 
-    tournaments_objects = Tournament.objects.all()
+    tournaments_objects = Tournament.objects.filter(finished=False)
     return render(request, 'tournaments/tournaments.html', {'tournaments': tournaments_objects})
 
 

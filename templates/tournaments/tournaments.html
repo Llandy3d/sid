@@ -2,13 +2,24 @@
 
 {% load static %}
 
+{% block stylesheets %}
+
+    {{ block.super }}
+
+    <link rel="stylesheet" href="{% static 'css/tournaments.css' %}">
+
+{% endblock stylesheets %}
+
 {% block content %}
 
     <div class="row">
         <div class="col-md-6">
 
             {% for tournament in tournaments %}
-                <p><a href="{{ tournament.get_absolute_url }}">{{ tournament.name }}</a></p>
+                <div class="tournament-entry">
+                    <p><a href="{{ tournament.get_absolute_url }}">{{ tournament.name }}</a></p>
+                    <p>{{ tournament.starting_date }}</p>
+                </div>
             {% endfor %}
 
         </div> <!-- end of col-md-6 -->
